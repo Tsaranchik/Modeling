@@ -27,7 +27,8 @@ def fx_chart(frequency):
     plt.ylabel('Probability')
     plt.xticks(range(0, 100, 5))
     plt.grid(axis='y')
-    plt.show()
+    plt.savefig("f(x).png")
+    plt.close()
 
 
 def px_chart(tests, probability):
@@ -41,7 +42,8 @@ def px_chart(tests, probability):
     plt.ylabel("Probability")
     plt.xticks(range(0, 101, 5))
     plt.grid(axis='y')
-    plt.show()
+    plt.savefig("p(x).png")
+    plt.close()
 
 
 def Fx_chart(frequency):
@@ -57,7 +59,8 @@ def Fx_chart(frequency):
     plt.ylabel("Cumulative probability")
     plt.xticks(range(0, 100, 5))
     plt.grid()
-    plt.show()
+    plt.savefig("F(x).png")
+    plt.close()
 
 
 def uniformity_check_chart(means, theoretical_mean):
@@ -71,7 +74,8 @@ def uniformity_check_chart(means, theoretical_mean):
     plt.ylabel('Absolute difference')
     plt.grid()
     plt.legend()
-    plt.show()
+    plt.savefig("uniformity_check.png")
+    plt.close()
 
 
 def main():
