@@ -1,10 +1,34 @@
 import java.io.*;
-import java.lang.reflect.Array;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.util.Arrays;
 
 public class Main {
 
-    public static void main(String[] args) {
+    private static void runPyFile() throws InterruptedException {
+        try {
+            ProcessBuilder pb = new ProcessBuilder("python3", "chart.py");
+            pb.inheritIO();
+
+            Process process = pb.start();
+            process.waitFor();
+
+
+            File[] plots = {new File("uniformity_check.png"), new File("F(x).png"),
+            new File("f(x).png"), new File("p(x).png")};
+
+            for (File plot : plots) {
+                if (plot.exists()) {
+                    java.awt.Desktop.getDesktop().open(plot);
+                }
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+
+        } 
+    }
+
+    private static void printData() {
         int[] series = NumberGenerator.generateSeries();
         System.out.println(Arrays.toString(series));
 
@@ -14,7 +38,9 @@ public class Main {
         System.out.println(var);
         double std = Statistics.std(series);
         System.out.println(std);
+    }
 
+    private static void writeDataToTxt(int[] series) {
         double[] means = Statistics.meanForEachSeries(series);
 
         int[] frequency = new int[100];
@@ -37,9 +63,15 @@ public class Main {
 
             writer.write("Frequency: " + Arrays.toString(frequency));
             writer.newLine();
-            
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        printData();
+        writeDataToTxt(NumberGenerator.generateSeries());
+        runPyFile();
     }
 }
