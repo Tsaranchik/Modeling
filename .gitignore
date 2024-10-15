@@ -1,2 +1,6 @@
 report/
 __pycache__/
+.idea/
+out/
+*.iml
+*.txt
